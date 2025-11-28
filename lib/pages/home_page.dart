@@ -41,11 +41,13 @@ class _HomePageState extends State<HomePage> {
               } else if (action == "edit") {
                 final i = tasks.indexWhere((t) => t.id == updatedTask.id);
                 tasks[i] = updatedTask;
+              } else if (action == "delete"){
+                tasks.removeWhere((t)=> t.id == updatedTask.id);
               }
-          });
-         }
-      },
-      child: const Icon(Icons.add),
+            });
+           }
+          },
+       child: const Icon(Icons.add),
       ),
     );
   }
