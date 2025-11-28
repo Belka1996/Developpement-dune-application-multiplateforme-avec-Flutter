@@ -31,10 +31,17 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-         final newTask = await Navigator.pushNamed(context, '/new-task');
-         if (newTask is Task) {
+         final result = await Navigator.pushNamed(context, '/new-task');
+         if (result is Map) {
+          final action = result["action"];
+          final Task updatedTask = result["task"];
           setState(() {
-            tasks.add(newTask);
+            if (action == "create") {
+                tasks.add(updatedTask);
+              } else if (action == "edit") {
+                final i = tasks.indexWhere((t) => t.id == updatedTask.id);
+                tasks[i] = updatedTask;
+              }
           });
          }
       },
