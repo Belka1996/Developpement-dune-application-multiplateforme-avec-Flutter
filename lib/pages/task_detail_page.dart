@@ -62,6 +62,21 @@ class TaskDetailPage extends StatelessWidget {
               ),
               child: Text(task.notes ?? "Pas de notes"),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: () async {
+                final result = await Navigator.pushNamed(
+                  context,
+                   '/new-task',
+                   arguments: task,
+                );
+                if (result is Map && result["action"] == "edit"){
+                  Navigator.pop(context, result);
+                }
+              },
+              icon: const Icon(Icons.edit),
+              label: const Text("Modifier la tache"),
+            ),
           ],
         ),
       ),
