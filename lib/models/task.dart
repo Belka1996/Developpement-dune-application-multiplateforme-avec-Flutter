@@ -1,4 +1,4 @@
-class task {
+class Task {
   String id;
   String title;
   String? date;
@@ -7,7 +7,7 @@ class task {
   String? notes;
   bool isfavorite;
 
-  task({
+  Task({
     required this.id,
     required this.title,
     this.date,
