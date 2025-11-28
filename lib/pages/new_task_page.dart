@@ -1,6 +1,6 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_study_app/models/task.dart';
-import '../widgets/task_card.dart';
+ 
 
 class NewTaskPage extends StatefulWidget {
   const NewTaskPage ({super.key});
@@ -19,7 +19,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Nouvelle tache"),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 233, 226, 226),
         elevation: 0,
       ),
       body: Padding(
@@ -42,7 +42,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 ),
                 ElevatedButton(
                   onPressed: (){
-                    final newTask = task(
+                    final newTask = Task(
                       id: DateTime.now().toString(),
                       title: titleController.text,
                       date: dateController.text,
@@ -66,7 +66,7 @@ Widget customTextField(String label, TextEditingController controller){
     margin: const EdgeInsets.only(bottom: 15),
     padding: const EdgeInsets.symmetric(horizontal: 15),
     decoration: BoxDecoration(
-      color: const Color.fromARGB(255, 165, 34, 34),
+      color: const Color.fromARGB(255, 108, 112, 251),
       borderRadius: BorderRadius.circular(20),
     ),
     child: TextField(
