@@ -77,6 +77,20 @@ class TaskDetailPage extends StatelessWidget {
               icon: const Icon(Icons.edit),
               label: const Text("Modifier la tache"),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              onPressed: () {
+                Navigator.pop(context, {
+                  "action": "delete",
+                  "task": task,
+                });
+              },
+              icon: const Icon(Icons.delete,color: Colors.white),
+              label: const Text("Supprimer la tache"),
+            )
           ],
         ),
       ),
