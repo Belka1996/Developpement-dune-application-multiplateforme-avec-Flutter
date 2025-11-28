@@ -48,6 +48,20 @@ class TaskDetailPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
+            const Text(
+              "Notes",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(12),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(task.notes ?? "Pas de notes"),
+            ),
           ],
         ),
       ),
