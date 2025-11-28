@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'pages/login_page.dart';
+import 'pages/home_page.dart';
+import 'pages/new_task_page.dart';
+import 'pages/task_detail_page.dart';
+import 'pages/search_page.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const StudyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class StudyApp extends StatelessWidget {
+  const StudyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+    return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/login',
+      routes: {
+        '/login': (_) => const LoginPage(),
+        '/home': (_) => const HomePage(),
+        '/new-task': (_) => const NewTaskPage(),
+        '/task-detail': (_) => const TaskDetailPage(),
+        '/search': (_) => const SearchPage(),
+      },
+       );
   }
 }
