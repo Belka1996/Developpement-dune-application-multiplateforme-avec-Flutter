@@ -24,6 +24,30 @@ class TaskDetailPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
+            Row(
+              children: [
+                const Icon(Icons.calendar_today, size: 20, color: Colors.blue),
+                const SizedBox(width: 8),
+                Text(task.date ?? "Aucune date"),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const Icon(Icons.flag, size: 20, color: Colors.red),
+                const SizedBox(width: 8),
+                Text(task.priority ?? "Aucune priorité"),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                const Icon(Icons.book, size: 20, color: Colors.green),
+                const SizedBox(width: 8),
+                Text(task.course ?? "Aucune cours"),
+              ],
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
