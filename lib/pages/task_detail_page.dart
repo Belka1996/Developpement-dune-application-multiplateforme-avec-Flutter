@@ -1,40 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/task.dart';
 
-class NewTaskPage extends StatefulWidget {
-  const NewTaskPage({super.key});
-
-  @override
-  State<NewTaskPage> createState() => _NewTaskPageState();
-}
-
-class _NewTaskPageState extends State<NewTaskPage> {
-  final titleController = TextEditingController();
-  final dateController = TextEditingController();
-  final priorityController = TextEditingController();
-  final courseController = TextEditingController();
-  final notesController = TextEditingController();
-
-  Task? oldTask; 
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final args = ModalRoute.of(context)!.settings.arguments;
-    if (args is Task) {
-      oldTask = args;
-      titleController.text = args.title;
-      dateController.text = args.date ?? "";
-      priorityController.text = args.priority ?? "";
-      courseController.text = args.course ?? "";
-      notesController.text = args.notes ?? "";
-    }
-  }
+class TaskDetailPage extends StatelessWidget {
+  const TaskDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isEditMode = oldTask != null;
+    final Task task = ModalRoute.of(context)!.settings.arguments as Task;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -42,15 +14,15 @@ class _NewTaskPageState extends State<NewTaskPage> {
       appBar: AppBar(
   backgroundColor: Colors.black.withOpacity(0.3),
   elevation: 0,
-  title: Text(
-    isEditMode ? "Modifier la tâche" : "Nouvelle tâche",
-    style: const TextStyle(color: Colors.white),
+  title: const Text(
+    "Détails",
+    style: TextStyle(color: Colors.white),
   ),
 
   leading: IconButton(
-    icon: const Icon(Icons.home, color: Colors.red),
+    icon: const Icon(Icons.arrow_back, color: Colors.red),
     onPressed: () {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pop(context);
     },
   ),
 
@@ -68,7 +40,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/images/newtask_bg.jpg",
+              "assets/images/taskdetail_bg.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -80,70 +52,103 @@ class _NewTaskPageState extends State<NewTaskPage> {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
             child: ListView(
-              padding: const EdgeInsets.all(20),
               children: [
-                _field("Titre", titleController),
-                _field("Date", dateController),
-                _field("Priorité", priorityController),
-                _field("Cours", courseController),
-                _field("Notes", notesController),
+                Text(
+                  task.title,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_today, color: Colors.blue),
+                    const SizedBox(width: 8),
+                    Text(task.date ?? "Aucune date"),
+                  ],
+                ),
+                const SizedBox(height: 15),
+
+                Row(
+                  children: [
+                    const Icon(Icons.flag, color: Colors.red),
+                    const SizedBox(width: 8),
+                    Text(task.priority ?? "Aucune priorité"),
+                  ],
+                ),
+                const SizedBox(height: 15),
+
+                Row(
+                  children: [
+                    const Icon(Icons.book, color: Colors.deepPurple),
+                    const SizedBox(width: 8),
+                    Text(task.course ?? "Aucun cours"),
+                  ],
+                ),
 
                 const SizedBox(height: 30),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("Annuler"),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        final Task newTask = Task(
-                          id: isEditMode
-                              ? oldTask!.id
-                              : DateTime.now().toString(),
-                          title: titleController.text,
-                          date: dateController.text,
-                          priority: priorityController.text,
-                          course: courseController.text,
-                          notes: notesController.text,
-                        );
+                const Text(
+                  "Notes",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 10),
 
-                        Navigator.pop(context, {
-                          "action": isEditMode ? "edit" : "create",
-                          "task": newTask,
-                        });
-                      },
-                      child:
-                          Text(isEditMode ? "Enregistrer" : "Créer"),
-                    ),
-                  ],
-                )
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.85),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(task.notes ?? "Pas de notes"),
+                ),
+
+                const SizedBox(height: 40),
+
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    final result = await Navigator.pushNamed(
+                      context,
+                      '/new-task',
+                      arguments: task,
+                    );
+
+                    if (result is Map && result["action"] == "edit") {
+                      Navigator.pop(context, result);
+                    }
+                  },
+                  icon: const Icon(Icons.edit),
+                  label: const Text("Modifier la tâche"),
+                ),
+
+                const SizedBox(height: 20),
+
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context, {
+                      "action": "delete",
+                      "task": task,
+                    });
+                  },
+                  icon: const Icon(Icons.delete, color: Colors.white),
+                  label: const Text("Supprimer la tâche"),
+                ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _field(String label, TextEditingController c) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.85),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        controller: c,
-        decoration: InputDecoration(
-          labelText: label,
-          border: InputBorder.none,
-        ),
       ),
     );
   }
