@@ -22,7 +22,7 @@ class StudyApp extends StatelessWidget {
         '/home': (_) => const HomePage(),
         '/new-task': (_) => const NewTaskPage(),
         '/task-detail': (_) => const TaskDetailPage(),
-        '/search': (_) => const SearchPage(),
+        '/search': (context) => const SearchPage(),
       },
     );
   }
