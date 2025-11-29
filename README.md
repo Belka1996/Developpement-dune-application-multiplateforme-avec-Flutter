@@ -13,7 +13,7 @@
   ![wait](https://github.com/user-attachments/assets/eeb926af-6873-4ac8-b80f-780a79eac140)
 
 ### 📄 **Task Detail Page**
-    ![wait](https://github.com/user-attachments/assets/fde990c9-7592-4f4a-9ff8-9f45b8a14578)
+ ![wait](https://github.com/user-attachments/assets/fde990c9-7592-4f4a-9ff8-9f45b8a14578)
 
 
 
