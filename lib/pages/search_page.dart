@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
   elevation: 0,
   title: const Text(
     "Recherche",
-    style: TextStyle(color: Colors.white), // si tu veux que le texte soit visible aussi
+    style: TextStyle(color: Colors.white), 
   ),
 
   leading: IconButton(
@@ -65,7 +65,6 @@ class _SearchPageState extends State<SearchPage> {
 
       body: Stack(
         children: [
-          // ⭐ IMAGE DE FOND DE LA SEARCH PAGE
           Positioned.fill(
             child: Image.asset(
               "assets/images/search.jpg",
@@ -73,19 +72,16 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
 
-          // ⭐ OVERLAY LÉGER
           Positioned.fill(
             child: Container(
               color: Colors.white.withOpacity(0.3),
             ),
           ),
 
-          // ⭐ CONTENU
           Padding(
             padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
             child: Column(
               children: [
-                // Barre de recherche
                 TextField(
                   controller: searchController,
                   onChanged: updateSearch,
@@ -101,8 +97,6 @@ class _SearchPageState extends State<SearchPage> {
                 ),
 
                 const SizedBox(height: 20),
-
-                // Résultats
                 Expanded(
                   child: ListView.builder(
                     itemCount: results.length,
