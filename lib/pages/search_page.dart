@@ -31,4 +31,105 @@ class _SearchPageState extends State<SearchPage> {
           allTasks.where((t) => t.title.toLowerCase().contains(query)).toList();
     });
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+
+      appBar: AppBar(
+  backgroundColor: Colors.black.withOpacity(0.3),
+  elevation: 0,
+  title: const Text(
+    "Recherche",
+    style: TextStyle(color: Colors.white), // si tu veux que le texte soit visible aussi
+  ),
+
+  leading: IconButton(
+    icon: const Icon(Icons.home, color: Colors.red),
+    onPressed: () {
+      Navigator.pushReplacementNamed(context, '/home');
+    },
+  ),
+
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.logout, color: Colors.red),
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, '/login');
+      },
+    ),
+  ],
+),
+
+
+      body: Stack(
+        children: [
+          // ⭐ IMAGE DE FOND DE LA SEARCH PAGE
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/search.jpg",
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // ⭐ OVERLAY LÉGER
+          Positioned.fill(
+            child: Container(
+              color: Colors.white.withOpacity(0.3),
+            ),
+          ),
+
+          // ⭐ CONTENU
+          Padding(
+            padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
+            child: Column(
+              children: [
+                // Barre de recherche
+                TextField(
+                  controller: searchController,
+                  onChanged: updateSearch,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: "Rechercher une tâche...",
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.8),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Résultats
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: results.length,
+                    itemBuilder: (context, index) {
+                      final t = results[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(t.title),
+                          subtitle: Text(t.date ?? "Aucune date"),
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/task-detail',
+                              arguments: t,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
