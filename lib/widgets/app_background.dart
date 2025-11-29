@@ -15,7 +15,12 @@ class AppBackground extends StatelessWidget {
         ),
       ),
 
-      child: child,
+      // voile blanc léger pour rendre les textes lisibles
+      child: Container(
+        color: Colors.white.withOpacity(0.07),
+        child: child,
+      ),
     );
   }
-}
+} 
+
