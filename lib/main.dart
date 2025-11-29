@@ -14,7 +14,7 @@ class StudyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       routes: {
@@ -24,6 +24,8 @@ class StudyApp extends StatelessWidget {
         '/task-detail': (_) => const TaskDetailPage(),
         '/search': (_) => const SearchPage(),
       },
-       );
+    );
   }
 }
+
+

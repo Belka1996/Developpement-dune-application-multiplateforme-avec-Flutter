@@ -5,7 +5,6 @@ class Task {
   String? priority;
   String? course;
   String? notes;
-  bool isfavorite;
 
   Task({
     required this.id,
@@ -14,6 +13,7 @@ class Task {
     this.priority,
     this.course,
     this.notes,
-    this.isfavorite = false,
   });
 }
+
+
